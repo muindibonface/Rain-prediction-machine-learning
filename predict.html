@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+
+    <!-- <link rel="stylesheet" href={{url_for('static',filename='predictor.css')}}> 
+    <link rel="stylesheet" href={{url_for('static',filename='pred.css')}}>-->
+    <link rel="stylesheet" href="/static/pred.css">
+
+    <title>Rain Prediction</title>
+</head>
+<body>
+     
+        <header>
+        </div>
+        <h2><a href="/" class="logo">AccuRain</a></h2>
+        <div class="navigation">
+          <a href="/">Home</a>
+    
+        </div>
+        <label class="label1" for="check">
+        <i class="fas fa-bars menu-btn"></i>
+        <i class="fas fa-times close-btn"></i>
+        </label>
+      </header>
+      <section id="prediction-form">
+        <form class="form" action="/predict" method="POST">
+            <h1 class="my-3 text-center">Predictor</h1>
+            <div class="row">
+                <div class="col-md-6 my-2">
+                    <div class="md-form">
+                        <label for="mintemp" class="mintemp">Today's Minimum temperature (°C)</label></br>
+                        <input type="number" id="mintemp" name="mintemp" required> 
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="md-form">
+                        <label for="maxtemp" class="maxtemp">Today's Maximum Temperature (°C)</label></br>
+                        <input type="number" id="maxtemp" name="maxtemp" required>
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="md-form">
+                        <label for="sunshine" class="sunshine">Today's Sunshine (hours/day)</label></br>
+                        <input type="number" id="sunshine" name="sunshine" required>
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="md-form">
+                        <label for="windgustspeed" class="windgustspeed">Today's Wind Gust Speed (km/hr)</label></br>
+                        <input type="number" id="windgustspeed" name="windgustspeed" required>
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="md-form">
+                        <label for="humidity9am" class="humidity9am">Humidity 9am (relative humidity %)</label></br>
+                        <input type="number" id="humidity9am" name="humidity9am" required>        
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="md-form">
+                        <label for="humidity3pm" class="humidity3pm">Humidity 3pm (relative humidity %)</label></br>
+                        <input type="number" id="humidity3pm" name="humidity3pm" required>
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="md-form">
+                        <label for="pressure9am" class="pressure9am">Pressure 9am (hpa)</label></br>
+                        <input type="number" class="form-control" id="pressure9am" name="pressure9am" required>
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="md-form">
+                        <label for="pressure3pm" class="pressure3pm">Pressure 3pm  (hpa)</label></br>
+                        <input type="number" class="form-control" id="pressure3pm" name="pressure3pm" required>
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="md-form">
+                        <label for="temp9am" class="temp9am">Temperature 9am (°C)</label></br>
+                        <input type="number" class="form-control" id="temp9am" name="temp9am" required>
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="md-form">
+                        <label for="temp3pm" class="temp3pm">Temperature 3pm (°C)</label></br>
+                        <input type="number" class="form-control" id="temp3pm" name="temp3pm" required>
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="md-form">
+                        <label for="cloud9am" class="cloud9am">Cloud 9am (oktas)</label></br>
+                        <input type="number" class="form-control" id="cloud9am" name="cloud9am" required>
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="md-form">
+                        <label for="cloud3pm" class="cloud3pm">Cloud 3pm (oktas)</label></br>
+                        <input type="number" class="form-control" id="cloud3pm" name="cloud3pm" required>
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="md-form">
+                        <label for="raintoday" class="raintoday">Rain Today</label></br>
+                        <select class="form-control" id="raintoday" name="raintoday" required>
+                            <option value="" disabled selected>Did it Rain Today?</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12 my-2 d-flex align-items-end justify-content-around">
+                    <button type="submit" class="btn btn-info button">Predict</button>
+                </div>
+            </div>
+        </form>
+    </section>
+    <script>
+        function myfunction() { 
+          var minTemp = document.getElementById("mintemp").value;
+          var maxTemp = document.getElementById("maxtemp").value;
+          var sunshine = document.getElementById("sunshine").value;
+          var windGustSpeed = document.getElementById("windgustspeed").value;
+          var humidity3pm = document.getElementById("humidity3pm").value;
+          var humidity9am = document.getElementById("humidity9am").value;
+          var cloud3pm = document.getElementById("cloud3pm").value;
+          var cloud9am = document.getElementById("cloud9am").value;
+          var pressure3pm = document.getElementById("pressure3pm").value;
+          var pressure9am = document.getElementById("pressure9am").value;
+        
+        
+          if (isNaN(sunshine) || sunshine < 0 || sunshine > 12) {
+            alert("The Sunshine must be a number between 0 and 12");
+            return false;
+          }
+        
+          if (isNaN(humidity3pm) || humidity3pm < 18 || humidity3pm > 122) {
+            alert("The Humidity3pm must be a number between 18 and 122");
+            return false;
+          }
+        
+          if (isNaN(humidity9am) || humidity9am < 18 || humidity9am > 122) {
+            alert("The Humidity9am must be a number between 18 and 122");
+            return false;
+          }
+        
+          if (isNaN(cloud3pm) || cloud3pm < 0 || cloud3pm > 8) {
+            alert("The Cloud3pm must be a number between 0 and 8");
+            return false;
+          }
+        
+          if (isNaN(cloud9am) || cloud9am < 0 || cloud9am > 8) {
+            alert("The Cloud9am must be a number between 0 and 8");
+            return false;
+          }
+        
+          if (isNaN(pressure9am) || pressure9am < 1000 || pressure9am > 1034 ) {
+            alert("The Pressure9am must be a number between 1000  and  1034");
+            return false;
+          }
+        
+          if (isNaN(pressure3pm) || pressure3pm < 1000 || pressure3pm > 1034) {
+            alert("The Pressure3pm must be a number between 1000 and 1034 ");
+            return false;
+          }
+        
+          if (isNaN(windGustSpeed) || windGustSpeed < 8.5 || windGustSpeed > 68.5) {
+            alert("The WindgustSpeed must be a number between 8.5 and 68.5");
+            return false;
+          }
+          if (isNaN(minTemp) || isNaN(maxTemp)) {
+            alert("Temperature values must be numbers.");
+            return false;
+        }
+        
+        return true;
+
+        }
+        </script>
+        
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
